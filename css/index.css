@@ -529,8 +529,8 @@ blockquote p {
 .author-avatar {
   display: table-cell;
   vertical-align: top;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
 }
 .author-avatar img {
   width: 100%;
@@ -726,8 +726,8 @@ blockquote p {
   }
   .author-avatar {
     display: block;
-    width: 100px;
-    height: 100px;
+    width: auto;
+    height: auto;
     text-align: center;
   }
   .author-avatar img {
