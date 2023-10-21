@@ -726,8 +726,8 @@ blockquote p {
   }
   .author-avatar {
     display: block;
-    width: 100px;
-    height: 100px;
+    width: auto;
+    height: auto;
     text-align: center;
   }
   .author-avatar img {
