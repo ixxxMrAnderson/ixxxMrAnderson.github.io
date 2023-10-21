@@ -529,12 +529,12 @@ blockquote p {
 .author-avatar {
   display: table-cell;
   vertical-align: top;
-  width: 130px;
-  height: 130px;
+  width: 160px;
+  height: 160px;
 }
 .author-avatar img {
   width: 100%;
-  max-width: 210px;
+  max-width: 250px;
   border-radius: 50%;
 }
 .author-discrip {
