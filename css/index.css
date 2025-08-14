@@ -531,8 +531,8 @@ blockquote p {
   grid-template-columns: repeat(2, 1fr);
   gap: 6px;              /* 网格间距 */
 
-  width: 320px;
-  height: 320px;
+  width: 200px;
+  height: 200px;
 }
 
 /* 网格里的图片做等比裁剪成正方形 */
@@ -545,14 +545,14 @@ blockquote p {
 .author-avatar {
   display: table-cell;
   vertical-align: top;
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
 }
 .harvey-avatar {
   display: table-cell;
   vertical-align: top;
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
 }
 .author-avatar img {
   width: 100%;
