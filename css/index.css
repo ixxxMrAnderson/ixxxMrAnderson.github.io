@@ -532,8 +532,8 @@ blockquote p {
   grid-template-columns: repeat(2, 1fr);
   gap: 6px;              /* 网格间距 */
 
-  width: 300px;
-  height: 300px;
+  /* width: 300px;
+  height: 300px; */
 }
 
 /* 网格里的图片做等比裁剪成正方形 */
@@ -552,8 +552,8 @@ blockquote p {
 .harvey-avatar {
   display: table-cell;
   vertical-align: top;
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
 }
 .author-avatar img {
   width: 100%;
@@ -719,19 +719,7 @@ blockquote p {
 .social-links .e-social-link:hover span {
   text-decoration: underline;
 }
-.cv-links {
-  color: #096494 !important;
-  display: inline-block;
-  position: relative;
-  font-size: 1.4rem;
-  margin-left: 5.5rem;
-}
-.cv-links i {
-  text-decoration: underline;
-}
-.cv-links i::before {
-  margin-right: 0.5rem;
-}
+
 @media (min-width: 66.67em) {
   .side-card {
     padding-right: 0;
@@ -739,7 +727,7 @@ blockquote p {
 }
 @media (min-width: 34em) {
   .side-card {
-    width: 15.25424%;
+    width: 25.25424%;
     min-width: 165px;
     float: left;
     margin-right: 1.69492%;
