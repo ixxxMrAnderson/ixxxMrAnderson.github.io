@@ -532,12 +532,30 @@ blockquote p {
   width: 160px;
   height: 160px;
 }
+.harvey-avatar {
+  display: table-cell;
+  vertical-align: top;
+  width: 160px;
+  height: 160px;
+}
 .author-avatar img {
   width: 100%;
   max-width: 250px;
   border-radius: 50%;
 }
+.harvey-avatar img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 50%;
+}
 .author-discrip {
+  display: table-cell;
+  vertical-align: top;
+  padding-left: 15px;
+  padding-right: 15px;
+  line-height: 1;
+}
+.harvey-discrip {
   display: table-cell;
   vertical-align: top;
   padding-left: 15px;
