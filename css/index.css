@@ -493,14 +493,18 @@ blockquote p {
 }
 @media screen and (min-width: 66.67em) {
   #page_main {
-    max-width: 1200px;
+    display: flex;
+    gap: 24px;                  /* 两列之间的间距，可按需调整 */
+    justify-content: center;    /* 让两列作为一个整体水平居中 */
+    align-items: flex-start;
   }
 }
 @media (min-width: 34em) {
   .page {
-    width: 95.5%;
-    float: right;
-    margin-right: 0;
+    float: none !important;
+    width: auto;
+    flex: 0 1 820px;            /* 可换成 0 1 900px 等更宽的值 */
+    margin: 0;
   }
   .page .page-title {
     padding: 0 3.6rem;
@@ -510,10 +514,10 @@ blockquote p {
   }
 }
 .side-card {
-  clear: both;
-  margin-bottom: 1.6rem;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  float: none !important;
+  width: 320px;               /* 侧栏固定宽度，足够容纳 2×2 网格 */
+  min-width: 300px;
+  margin: 0; 
 }
 .side-card .card-wrap {
   padding-left: 10px;
