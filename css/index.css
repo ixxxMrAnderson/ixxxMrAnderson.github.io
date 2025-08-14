@@ -526,6 +526,19 @@ blockquote p {
   font-size: 1.4rem;
   line-height: 1.5;
 }
+.author-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;              /* 网格间距 */
+}
+
+/* 网格里的图片做等比裁剪成正方形 */
+.author-grid img {
+  width: 100%;
+  aspect-ratio: 1 / 1;   /* 强制正方形 */
+  object-fit: cover;     /* 居中裁切填充 */
+  border-radius: 0 !important; /* 覆盖原先的圆形头像 */
+}
 .author-avatar {
   display: table-cell;
   vertical-align: top;
