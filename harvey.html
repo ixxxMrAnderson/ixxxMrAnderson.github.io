@@ -9,16 +9,19 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css">
         <meta name="generator" content="Hexo 5.4.2">
     
+    
     <style>
-      .brand-duo{display:flex;gap:.5rem;align-items:center;font-weight:700;font-size:1.1rem;}
-      .brand-link{color:inherit;text-decoration:none;}
-      .brand-link:hover{text-decoration:underline;}
-      .brand-link.active{border-bottom:2px solid currentColor;}
-      .brand-sep{opacity:.5;user-select:none;}
+      /* Brand switcher: enforce horizontal layout and inline links */
+      #blog_name.brand-duo{display:flex !important;flex-direction:row !important;gap:.5rem;align-items:center;font-weight:700;font-size:1.1rem;}
+      #blog_name.brand-duo .brand-sep{opacity:.5;user-select:none;}
+      #blog_name.brand-duo .brand-link{display:inline-flex !important;align-items:center;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;}
+      #blog_name.brand-duo .brand-link:hover{text-decoration:none;border-bottom-color:currentColor;}
+      #blog_name.brand-duo .brand-link.active{border-bottom-color:currentColor;}
       @media (max-width: 540px){
-        .brand-duo{flex-wrap:wrap;gap:.25rem;}
+        #blog_name.brand-duo{flex-wrap:wrap;gap:.25rem;}
       }
     </style>
+    
 
     </head>
     <body>
@@ -51,23 +54,6 @@
                         <h3 id="About-harvey"><a href="#About-harvey" class="headerlink" title="About Harvey"></a>About Harvey</h3>
                         <p>Harvey is my small dog and the sweetest sidekick. He loves belly rubs, squeaky toys, and napping next to the keyboard while I code. Here are a few photos and fun notes as I collect them.</p>
                         <h3>Photo Album (coming soon)</h3>
-                        <p><b>Walks & Treats:</b> Harvey prefers afternoon walks and crunchy treats. Training goals: sit, stay, and paw.</p><p><b>Favorite Spots:</b> A sunny corner by the window and any blanket that looks extra fluffy.</p>
-                        <p> I'm interested in zero-knowledge protocols across the entire spectrum—from enhancing the efficiency of interactive protocols with a designated, centralized verifier to minimizing prover overhead and setup costs in zk-SNARKs, where proofs need to be both succinct and publicly verifiable. I have experience implementing in both realms: I used the EMP-toolkit to develop a VOLE-based ZK protocol and plonky2 to design a SNARK circuit for evaluation in my paper.</p>
-                        <p><b>Private Signaling/Oblivious Message Retrieval:</b> An alternative approach to adding privacy in distributed systems is through private signaling/oblivious
-                        message retrieval. While existing methods often rely on fully homomorphic encryption (FHE) or trusted execution
-                        environments (TEE), my work aims to developing efficient methodologies that avoid these heavy-weight techniques.</p>
-                        <h3>Notes</h3>
-                        <p> <b><a href="https://eprint.iacr.org/2023/1610">An Efficient ZK Compiler from SIMD Circuits to General Circuits</a></b><br>
-                        Dung Bui, <b>Haotian Chu</b>, Geoffroy Couteau, Xiao Wang, Chenkai Weng, Kang Yang, Yu Yu<br>
-                        This work is done during my internship in Xiao's lab (in my senior year).<br>
-                        In this paper, we find a way to construct efficient ZKP by making the best of circuit parallelization.<br>
-                        We build a methodology compiler that can transform SIMD ZK into general one.<br>
-                        We also present some instansiation based on well-known protocols as well as concrete evaluation.<br>
-                        <b>This paper is accepted by Journal of Cryptology 2024.</b></p>
-                        <p><b><a href="https://eprint.iacr.org/2025/1056">Private Signaling Secure Against Actively Corrupted Servers</a></b><br>
-                            <b>Haotian Chu</b>, Xiao Wang, Yanxue Jia<br>
-                            Private signaling allows servers to identify a recipient's messages on a public bulletin board without knowing the recipient's metadata. It is a central tool for systems like privacy-preserving blockchains and anonymous messaging. However, unless with TEE, current constructions all assume that the servers are only passively corrupted, which significantly limits their practical relevance. In this work, we present a TEE-free simulation-secure private signaling protocol assuming two non-colluding servers, either of which can be actively corrupted.<br>
-                            This work is still in submission.</p>
                     </article>
                 </div>
         </main>

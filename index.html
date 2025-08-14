@@ -9,16 +9,19 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css">
         <meta name="generator" content="Hexo 5.4.2">
     
+    
     <style>
-      .brand-duo{display:flex;gap:.5rem;align-items:center;font-weight:700;font-size:1.1rem;}
-      .brand-link{color:inherit;text-decoration:none;}
-      .brand-link:hover{text-decoration:underline;}
-      .brand-link.active{border-bottom:2px solid currentColor;}
-      .brand-sep{opacity:.5;user-select:none;}
+      /* Brand switcher: enforce horizontal layout and inline links */
+      #blog_name.brand-duo{display:flex !important;flex-direction:row !important;gap:.5rem;align-items:center;font-weight:700;font-size:1.1rem;}
+      #blog_name.brand-duo .brand-sep{opacity:.5;user-select:none;}
+      #blog_name.brand-duo .brand-link{display:inline-flex !important;align-items:center;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;}
+      #blog_name.brand-duo .brand-link:hover{text-decoration:none;border-bottom-color:currentColor;}
+      #blog_name.brand-duo .brand-link.active{border-bottom-color:currentColor;}
       @media (max-width: 540px){
-        .brand-duo{flex-wrap:wrap;gap:.25rem;}
+        #blog_name.brand-duo{flex-wrap:wrap;gap:.25rem;}
       }
     </style>
+    
 
     </head>
     <body>
