@@ -498,7 +498,7 @@ blockquote p {
 }
 @media (min-width: 34em) {
   .page {
-    width: 82.5%;
+    width: 88.5%;
     float: right;
     margin-right: 0;
   }
@@ -528,11 +528,12 @@ blockquote p {
 }
 .author-grid {
   display: grid;
+  vertical-align: top;
   grid-template-columns: repeat(2, 1fr);
   gap: 6px;              /* 网格间距 */
 
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
 }
 
 /* 网格里的图片做等比裁剪成正方形 */
