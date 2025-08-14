@@ -530,6 +530,9 @@ blockquote p {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 6px;              /* 网格间距 */
+
+  width: 320px;
+  height: 320px;
 }
 
 /* 网格里的图片做等比裁剪成正方形 */
