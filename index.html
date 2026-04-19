@@ -60,11 +60,11 @@
                         <p>I'm a third-year phd student in cryptography at Northwestern University, advised by <a href="https://wangxiao1254.github.io/">Prof. Xiao Wang.</a><br>
                         Before joining Northwestern, I obtained my bachelor's degree from the <a href="https://acm.sjtu.edu.cn/home">ACM Honors Class</a>, Shanghai Jiao Tong University.<br>
                         In my junior year (in SJTU), I worked as a student intern at LATTICE lab, advised by <a href="https://scholar.google.co.uk/citations?user=lpRkCB4AAAAJ&hl=en">Prof. Yu Yu</a>. 
-                        During this internship, I mainly worked on <a href="https://github.com/ixxxMrAnderson/MCSA">how to prove the security of cryptographic primitives in a low-level method</a>.<br>
-                        Currently doing internship at <a href="https://chainlinklabs.com/">Chainlink Labs</a>.    </p>
+                        During this internship, I mainly worked on how to prove the security of cryptographic primitives in a low-level method.<br>
+                        Last fall, I was a research intern at <a href="https://chainlinklabs.com/">Chainlink Labs</a>.    </p>
                         <h3>Research Interests</h3>
-                        <p>I'm generally interested in zero-knowledge protocols across the entire spectrum—from improving protocol-level efficiency to exploring their applications in both Web2 and Web3. I have experience designing frameworks for efficient ZK systems, implementing both interactive ZK and SNARKs, and integrating ZK tools into production-level systems.</p>
-                        <p>Other interested topics: Multi-Party Computation, Private Signaling, Identity, Accountability</p>
+                        <p>I'm generally interested in zero-knowledge protocols across the entire spectrum—from improving protocol-level efficiency to exploring their applications. I have experience designing frameworks for efficient ZK systems, implementing both interactive ZK and SNARKs, and integrating ZK tools into production-level systems. <b> I am currently developing a post-quantum solution for stateless blockchain, while also preparing a survey on security flaws in contemporary agentic ecosystem.</b><\p>
+                        <!-- <p>Other interested topics: Multi-Party Computation, Private Signaling, Identity, Accountability</p> -->
                         <!-- <p><b>Zero-Knowledge Proof/Argument:</b> I'm interested in zero-knowledge protocols across the entire spectrum—from enhancing the efficiency of interactive protocols with a designated, centralized verifier to minimizing prover overhead and setup costs in zk-SNARKs, where proofs need to be both succinct and publicly verifiable. I have experience implementing in both realms: I used the EMP-toolkit to develop a VOLE-based ZK protocol and plonky2 to design a SNARK circuit for evaluation in my paper.</p> -->
                         <!-- <p><b>Private Signaling/Oblivious Message Retrieval:</b> An alternative approach to adding privacy in distributed systems is through private signaling/oblivious
                         message retrieval. While existing methods often rely on fully homomorphic encryption (FHE) or trusted execution
@@ -79,7 +79,12 @@
                         <b>This paper is accepted by Journal of Cryptology 2024.</b></p>
                         <p><b><a href="https://eprint.iacr.org/2025/1056">Private Signaling Secure Against Actively Corrupted Servers</a></b><br>
                             <b>Haotian Chu</b>, Xiao Wang, Yanxue Jia<br>
-                            Private signaling allows servers to identify a recipient's messages on a public bulletin board without knowing the recipient's metadata. It is a central tool for systems like privacy-preserving blockchains and anonymous messaging. However, unless with TEE, current constructions all assume that the servers are only passively corrupted, which significantly limits their practical relevance. In this work, we present a TEE-free simulation-secure private signaling protocol assuming two non-colluding servers, either of which can be actively corrupted.<br>
+                            Private signaling addresses the
+challenge that users cannot efficiently retrieve relevant information from a public ledger when data is encrypted under different
+keys. This issue is particularly acute in private chains such as Zcash and Aztec, and remains underexplored. Prior approaches
+rely on trusted execution environments (TEEs) to delegate this task to untrusted servers. In this work, we introduce a
+TEE-free protocol based on noveled MPC (multi-party computation) and ZKP (Zero-Knowledge Proof techniques, with very
+competitive concrete performance. I developed both the core idea and the full implementation independently. <br>
                             This work is still in submission.</p>
                     </article>
                 </div>
