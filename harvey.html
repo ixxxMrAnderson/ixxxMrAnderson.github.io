@@ -4,8 +4,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
         <title>Haotian Chu</title><meta name="author" content="Haotian Chu">
-        <link rel="shortcut icon" href="/img/neo.png">
-        <link rel="stylesheet" href="/css/index.css">
+        <link rel="shortcut icon" href="img/neo.png">
+        <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css">
         <meta name="generator" content="Hexo 5.4.2">
     
@@ -17,6 +17,10 @@
       #blog_name.brand-duo .brand-link{display:inline-flex !important;align-items:center;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;}
       #blog_name.brand-duo .brand-link:hover{text-decoration:none;border-bottom-color:currentColor;}
       #blog_name.brand-duo .brand-link.active{border-bottom-color:currentColor !important;}
+
+      body.harvey-page #page_main{max-width:960px;}
+      body.harvey-page .page{float:none;width:100%;margin-left:auto;margin-right:auto;}
+      body.harvey-page .page article{max-width:760px;margin:0 auto;}
       @media (max-width: 540px){
         #blog_name.brand-duo{flex-wrap:wrap;gap:.25rem;}
       }
@@ -24,44 +28,24 @@
     
 
     </head>
-    <body>
+    <body class="harvey-page">
         <header id="page_header">
             <div class="header_wrap">
-                <div id="blog_name" class="brand-duo"><a href="/" class="brand-link">Haotian Chu</a><span class="brand-sep"></span><a href="/harvey.html" class="brand-link">Harvey</a></div>
+                <div id="blog_name" class="brand-duo"><a href="index.html" class="brand-link">Haotian Chu</a><span class="brand-sep"></span><a href="harvey.html" class="brand-link">Harvey</a></div>
                 <button class="menus_icon">
                     <div class="navicon"></div>
                 </button>
             </div>
         </header>
         <main id="page_main">
-            <div class="side-card sticky">
-                <div class="card-wrap" itemscope itemtype="http://schema.org/Person">
-                    <div class="author-grid">
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/haotian_tnr.png'" alt="avatar">
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/me.png'" alt="avatar">
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/jesper.jpeg'" alt="avatar">
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/chu.png'" alt="avatar">
-                    </div>
-                    <div class="author-avatar">
-                    <div class="author-discrip">
-                        <p class="author-bio"></p></div><div class="author-links">
-                            <button class="btn m-social-links">Links</button>
-                            <ul class="social-icons">
-                                <li><a class="social-icon" href="https://github.com/ixxxMrAnderson/" target="_blank"><i class="fab fa-github" aria-hidden="true"></i></a></li>
-                                <li><a class="social-icon" href="mailto:haotian.chu@northwestern.edu" target="_blank"><i class="fas fa-envelope" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="page" itemscope itemtype="http://schema.org/CreativeWork">
                     <article>
                         <h3 id="About-harvey"><a href="#About-harvey" class="headerlink" title="About Harvey"></a>About Harvey</h3>
                         <p>Harvey was born on May 4—a date regarded as Chinese version of the Enlightenment, so we wish him a free, and inquisitive spirit. He's already huge for a three-month-old Border Collie, yet he still gets bullied in the dog park. At home, he's learning to get along with Jesper (a meow), to coax extra treats from us, and to chew things without getting caught.</p>
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/harvey1.jpeg'" style="width:320px; height:auto;">
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/harvey2.jpeg'" style="width:320px; height:auto;">
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/harvey3.jpeg'" style="width:320px; height:auto;">
-                        <!-- <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/harvey4.jpeg'" style="width:150px; height:auto;"> -->
+                        <img src="img/harvey1.jpeg" alt="Harvey" style="width:320px; height:auto;">
+                        <img src="img/harvey2.jpeg" alt="Harvey" style="width:320px; height:auto;">
+                        <img src="img/harvey3.jpeg" alt="Harvey" style="width:320px; height:auto;">
+                        <!-- <img src="img/harvey4.jpeg" alt="Harvey" style="width:150px; height:auto;"> -->
                     </article>
                 </div>
         </main>
@@ -71,8 +55,8 @@
                     <div class="navicon"></div>
                 </button>
                 <ul class="nav_items">
-                    <li class="nav_item"><a class="nav-page" href="/"> About</a></li>
-                    <li class="nav_item"><a class="nav-page" href="/harvey.html"> Harvey</a></li>
+                    <li class="nav_item"><a class="nav-page" href="index.html"> About</a></li>
+                    <li class="nav_item"><a class="nav-page" href="harvey.html"> Harvey</a></li>
                 </ul>
             </div>
             <div class="cd-top">
@@ -89,6 +73,6 @@
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery-pjax@latest/jquery.pjax.min.js"></script>
-        <script src="/js/main.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>

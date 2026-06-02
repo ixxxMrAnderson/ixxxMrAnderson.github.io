@@ -1,123 +1,401 @@
-<!DOCTYPE html><html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-        <title>Haotian Chu</title><meta name="author" content="Haotian Chu">
-        <link rel="shortcut icon" href="/img/neo.png">
-        <link rel="stylesheet" href="/css/index.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css">
-        <meta name="generator" content="Hexo 5.4.2">
-    
-    
-    <style>
-      /* Brand switcher: enforce horizontal layout and inline links */
-      #blog_name.brand-duo{display:flex !important;flex-direction:row !important;gap:.5rem;align-items:center;font-weight:700;font-size:2rem;}
-      #blog_name.brand-duo .brand-sep{opacity:.5;user-select:none;}
-      #blog_name.brand-duo .brand-link{display:inline-flex !important;align-items:center;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;}
-      #blog_name.brand-duo .brand-link:hover{text-decoration:none;border-bottom-color:currentColor;}
-      #blog_name.brand-duo .brand-link.active{border-bottom-color:currentColor !important;}
-      @media (max-width: 540px){
-        #blog_name.brand-duo{flex-wrap:wrap;gap:.25rem;}
-      }
-    </style>
-    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Haotian Chu - Website Concept</title>
+  <style>
+    :root {
+      --ink: #1f2428;
+      --muted: #69727a;
+      --paper: #fbfaf7;
+      --panel: #ffffff;
+      --line: #dad4c8;
+      --accent: #2f6f73;
+      --accent-strong: #174f53;
+      --soft: #eef4f1;
+      --gold: #b78232;
+      --max: 1120px;
+    }
 
-    </head>
-    <body>
-        <header id="page_header">
-            <div class="header_wrap">
-                <div id="blog_name" class="brand-duo"><a href="/" class="brand-link">Haotian Chu</a><span class="brand-sep"></span><a href="/harvey.html" class="brand-link">Harvey</a></div>
-                <button class="menus_icon">
-                    <div class="navicon"></div>
-                </button>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--accent-strong);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(251, 250, 247, 0.92);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .brand a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .brand-logo {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.98rem;
+    }
+
+    .nav-links a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      border-bottom-color: currentColor;
+    }
+
+    .hero {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      min-height: calc(100vh - 68px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) 360px;
+      align-items: center;
+      gap: 56px;
+      padding: 56px 0 64px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--accent-strong);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .affiliation-line {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nu-logo {
+      display: block;
+      width: 176px;
+      height: auto;
+    }
+
+    .nu-link {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(3rem, 8vw, 6.3rem);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 690px;
+      margin: 28px 0 0;
+      color: #3d464b;
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 180px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+    }
+
+    .content-band {
+      border-top: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .content {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 56px;
+      padding: 64px 0;
+    }
+
+    .side-note {
+      position: sticky;
+      top: 96px;
+      align-self: start;
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .side-note strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--ink);
+      font-size: 1.15rem;
+    }
+
+    .side-note .focus-line {
+      color: var(--ink);
+      font-weight: 700;
+      font-size: inherit;
+    }
+
+    .section {
+      scroll-margin-top: 96px;
+      padding-bottom: 44px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 44px;
+    }
+
+    .section:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .section p {
+      max-width: 820px;
+      margin: 0 0 16px;
+      font-size: 1.08rem;
+    }
+
+    .interest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .chip-card {
+      min-height: 116px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 6px;
+    }
+
+    .chip-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent-strong);
+      font-size: 1.05rem;
+    }
+
+    .publication-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .publication {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--gold);
+      background: #fffdf9;
+      border-radius: 6px;
+    }
+
+    .publication h3 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      line-height: 1.25;
+    }
+
+    .publication .meta {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .footer {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 32px 0 44px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 34px;
+      }
+
+      .hero-image img {
+        min-height: 150px;
+        aspect-ratio: 16 / 10;
+      }
+
+      .content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .side-note {
+        position: static;
+        max-width: 680px;
+      }
+
+      .interest-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav {
+        width: min(var(--max), calc(100% - 28px));
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 16px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .hero,
+      .content,
+      .footer {
+        width: min(var(--max), calc(100% - 28px));
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="brand">
+        <img class="brand-logo" src="img/neo.png" alt="">
+        <span>Haotian Chu (<a href="https://en.wikipedia.org/wiki/Neo_%28The_Matrix%29" target="_blank" rel="noopener">Neo Anderson</a> wannabe)</span>
+      </div>
+      <div class="nav-links">
+        <a href="#bio">About</a>
+        <a href="#publications">Publications</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="about">
+      <div>
+        <p class="eyebrow affiliation-line"><span>Cryptography PhD student in</span><a class="nu-link" href="https://www.northwestern.edu/" target="_blank" rel="noopener"><img class="nu-logo" src="https://cdn.freebiesupply.com/logos/large/2x/northwestern-university-logo-png-transparent.png" alt="Northwestern University"></a></p>
+        <h1>Haotian Chu</h1>
+        <p class="lead">I study zero-knowledge proofs, and other practical cryptographic systems, with a focus on integrating privacy in production-level environments.</p>
+      </div>
+      <div class="hero-image">
+        <img src="img/taro.jpeg" alt="Taro">
+      </div>
+    </section>
+
+    <section class="content-band">
+      <div class="content">
+        <aside class="side-note">
+          <strong>Research Interests</strong>
+          <p>I am generally interested in zero-knowledge protocols across the entire spectrum, from improving protocol-level efficiency to exploring their applications.</p>
+          <p class="focus-line">Currently, I am focused on post-quantum stateless blockchain and security flaws in contemporary agentic ecosystems.</p>
+        </aside>
+
+        <div>
+          <section class="section" id="bio">
+            <h2>About Me</h2>
+            <p>I'm a third-year PhD student in cryptography at Northwestern University, advised by <a href="https://wangxiao1254.github.io/">Prof. Xiao Wang</a>. Before joining Northwestern, I obtained my bachelor's degree from the <a href="https://acm.sjtu.edu.cn/home">ACM Honors Class</a>, Shanghai Jiao Tong University. In my junior year at SJTU, I worked as a student intern at LATTICE Lab, advised by <a href="https://scholar.google.co.uk/citations?user=lpRkCB4AAAAJ&amp;hl=en">Prof. Yu Yu</a>. During this internship, I mainly worked on proving the security of cryptographic primitives with low-level methods. Last fall, I was a research intern at <a href="https://chainlinklabs.com/">Chainlink Labs</a>, advised by <a href="http://www.neven.org/">Gregory Neven</a>.</p>
+            <p>I have experience designing frameworks for efficient ZK systems, implementing both interactive ZK and SNARKs, and integrating ZK tools into production-level systems.</p>
+          </section>
+
+          <section class="section" id="publications">
+            <h2>Publications</h2>
+            <div class="publication-list">
+              <article class="publication">
+                <h3><a href="https://eprint.iacr.org/2023/1610">An Efficient ZK Compiler from SIMD Circuits to General Circuits</a></h3>
+                <p class="meta">Dung Bui, <strong>Haotian Chu</strong>, Geoffroy Couteau, Xiao Wang, Chenkai Weng, Kang Yang, Yu Yu. <a href="https://link.springer.com/journal/145">Journal of Cryptology</a> 2024.</p>
+                <p>This work is done during my internship in Xiao's lab (in my senior year as an undergrad). In this paper, Xiao and I found a general framework for building efficient zero-knowledge proofs, a core technique in modern cryptography.</p>
+                <p>This is a rather theoretical and algorithmic paper focused on methodological improvement, showing how to transform a parallelized algorithm into general-purpose protocols. We also present concrete instantiations, implementation, and benchmarks.</p>
+                <p><strong>This paper is accepted by <a href="https://link.springer.com/journal/145">Journal of Cryptology</a> 2024.</strong></p>
+              </article>
+
+              <article class="publication">
+                <h3><a href="https://eprint.iacr.org/2025/1056">Private Signaling Secure Against Actively Corrupted Servers</a></h3>
+                <p class="meta"><strong>Haotian Chu</strong>, Xiao Wang, Yanxue Jia. Shepherding completed for CCS 2026.</p>
+                <p>Private signaling addresses the challenge that users cannot efficiently retrieve their transactions on privacy-preserving chains, where transaction data is encrypted by design. This is a significant bottleneck for user experience in large Web3 systems such as <a href="https://z.cash/">Zcash</a> and <a href="https://aztec.network/">Aztec</a>.</p>
+                <p>Prior work addresses this problem using hardware security, while we provide an algorithmic solution with rigorous mathematical proofs of security. I developed both the core idea and the full implementation independently.</p>
+              </article>
             </div>
-        </header>
-        <main id="page_main">
-            <div class="side-card sticky">
-                <div class="card-wrap" itemscope itemtype="http://schema.org/Person">
-                    <div class="author-grid">
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/haotian_tnr.png'" alt="avatar">
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/me.png'" alt="avatar">
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/jesper.jpeg'" alt="avatar">
-                        <img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/chu.png'" alt="avatar">
-                    </div>
-                    <div class="author-avatar">
-                    <div class="author-discrip">
-                        <p class="author-bio"></p></div><div class="author-links">
-                            <button class="btn m-social-links">Links</button>
-                            <ul class="social-icons">
-                                <li><a class="social-icon" href="https://github.com/ixxxMrAnderson/" target="_blank"><i class="fab fa-github" aria-hidden="true"></i></a></li>
-                                <li><a class="social-icon" href="mailto:haotian.chu@northwestern.edu" target="_blank"><i class="fas fa-envelope" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page" itemscope itemtype="http://schema.org/CreativeWork">
-                    <article>
-                        <h3 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About Me</h3>
-                        <p>I'm a third-year phd student in cryptography at Northwestern University, advised by <a href="https://wangxiao1254.github.io/">Prof. Xiao Wang.</a><br>
-                        Before joining Northwestern, I obtained my bachelor's degree from the <a href="https://acm.sjtu.edu.cn/home">ACM Honors Class</a>, Shanghai Jiao Tong University.<br>
-                        In my junior year (in SJTU), I worked as a student intern at LATTICE lab, advised by <a href="https://scholar.google.co.uk/citations?user=lpRkCB4AAAAJ&hl=en">Prof. Yu Yu</a>. 
-                        During this internship, I mainly worked on how to prove the security of cryptographic primitives in a low-level method.<br>
-                        Last fall, I was a research intern at <a href="https://chainlinklabs.com/">Chainlink Labs</a>.    </p>
-                        <h3>Research Interests</h3>
-                        <p>I'm generally interested in zero-knowledge protocols across the entire spectrum—from improving protocol-level 
-                            efficiency to exploring their applications. I have experience designing frameworks for efficient ZK systems, 
-                            implementing both interactive ZK and SNARKs, and integrating ZK tools into production-level systems. 
-                            <b> 
-                                I am currently developing a post-quantum solution for stateless blockchain, while also preparing a survey 
-                                on security flaws in contemporary agentic ecosystem.</b>
-                        <!-- <p>Other interested topics: Multi-Party Computation, Private Signaling, Identity, Accountability</p> -->
-                        <!-- <p><b>Zero-Knowledge Proof/Argument:</b> I'm interested in zero-knowledge protocols across the entire spectrum—from enhancing the efficiency of interactive protocols with a designated, centralized verifier to minimizing prover overhead and setup costs in zk-SNARKs, where proofs need to be both succinct and publicly verifiable. I have experience implementing in both realms: I used the EMP-toolkit to develop a VOLE-based ZK protocol and plonky2 to design a SNARK circuit for evaluation in my paper.</p> -->
-                        <!-- <p><b>Private Signaling/Oblivious Message Retrieval:</b> An alternative approach to adding privacy in distributed systems is through private signaling/oblivious
-                        message retrieval. While existing methods often rely on fully homomorphic encryption (FHE) or trusted execution
-                        environments (TEE), my work aims to developing efficient methodologies that avoid these heavy-weight techniques.</p> -->
-                        <h3>Publications</h3>
-                        <p> <b><a href="https://eprint.iacr.org/2023/1610">An Efficient ZK Compiler from SIMD Circuits to General Circuits</a></b><br>
-                        Dung Bui, <b>Haotian Chu</b>, Geoffroy Couteau, Xiao Wang, Chenkai Weng, Kang Yang, Yu Yu<br>
-                        This work is done during my internship in Xiao's lab (in my senior year).<br>
-                        In this paper, we find a way to construct efficient ZKP by making the best of circuit parallelization.<br>
-                        We build a methodology compiler that can transform SIMD ZK into general one.<br>
-                        We also present some instansiation based on well-known protocols as well as concrete evaluation.<br>
-                        <b>This paper is accepted by Journal of Cryptology 2024.</b></p>
-                        <p><b><a href="https://eprint.iacr.org/2025/1056">Private Signaling Secure Against Actively Corrupted Servers</a></b><br>
-                            <b>Haotian Chu</b>, Xiao Wang, Yanxue Jia<br>
-                            Private signaling addresses the
-challenge that users cannot efficiently retrieve relevant information from a public ledger when data is encrypted under different
-keys. This issue is particularly acute in private chains such as Zcash and Aztec, and remains underexplored. Prior approaches
-rely on trusted execution environments (TEEs) to delegate this task to untrusted servers. In this work, we introduce a
-TEE-free protocol based on noveled MPC (multi-party computation) and ZKP (Zero-Knowledge Proof) techniques, with very
-competitive concrete performance. I developed both the core idea and the full implementation independently. <br>
-                            This work is still in submission.</p>
-                    </article>
-                </div>
-        </main>
-        <div class="nav-wrap">
-            <div class="nav">
-                <button class="site-nav">
-                    <div class="navicon"></div>
-                </button>
-                <ul class="nav_items">
-                    <li class="nav_item"><a class="nav-page" href="/"> About</a></li>
-                    <li class="nav_item"><a class="nav-page" href="/harvey.html"> Harvey</a></li>
-                </ul>
-            </div>
-            <div class="cd-top">
-                <i class="fa fa-arrow-up" aria-hidden="true"></i>
-            </div>
+          </section>
         </div>
-        <footer id="page_footer">
-            <div class="footer_wrap">
-                <div class="copyright">&copy;2023 - 2025 by Haotian Chu</div>
-                <div class="theme-info">
-                    Powered by <a target="_blank" href="https://hexo.io" rel="nofollow noopener">Hexo</a>
-                </div>
-            </div>
-        </footer>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery-pjax@latest/jquery.pjax.min.js"></script>
-        <script src="/js/main.js"></script>
-    </body>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© 2026 Haotian Chu</span>
+    <span>Northwestern University · Cryptography</span>
+  </footer>
+</body>
 </html>
