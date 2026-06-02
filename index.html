@@ -115,9 +115,14 @@
     }
 
     .affiliation-line {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 16px;
+      flex-wrap: nowrap;
+    }
+
+    .affiliation-line span {
+      white-space: nowrap;
     }
 
     .nu-logo {
@@ -285,6 +290,8 @@
       .hero-image img {
         min-height: 150px;
         aspect-ratio: 16 / 10;
+        height: auto;
+        object-fit: contain;
       }
 
       .content {
@@ -303,6 +310,14 @@
     }
 
     @media (max-width: 560px) {
+      .affiliation-line {
+        gap: 8px;
+      }
+
+      .nu-logo {
+        width: 118px;
+      }
+
       .nav {
         width: min(var(--max), calc(100% - 28px));
         align-items: flex-start;
