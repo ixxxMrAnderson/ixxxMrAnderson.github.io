@@ -248,6 +248,97 @@
       gap: 16px;
     }
 
+    .project-list {
+      display: grid;
+      gap: 24px;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 28px;
+      align-items: stretch;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      background: var(--soft);
+      border-radius: 6px;
+    }
+
+    .project-gallery {
+      display: grid;
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      height: 100%;
+    }
+
+    .project-gallery img {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      object-fit: cover;
+      object-position: top;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--panel);
+    }
+
+    .project-copy h3 {
+      margin: 0 0 12px;
+      font-size: 1.55rem;
+      line-height: 1.2;
+    }
+
+    .project-copy p {
+      font-size: 1rem;
+    }
+
+    .project-wrapped {
+      display: block;
+    }
+
+    .project-wrapped::after {
+      display: block;
+      clear: both;
+      content: "";
+    }
+
+    .project-figure {
+      float: left;
+      width: 54%;
+      margin: 0 28px 14px 0;
+    }
+
+    .project-figure img {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--panel);
+    }
+
+    .project-figure figcaption {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .project-wrapped h3 {
+      margin: 0 0 12px;
+      font-size: 1.55rem;
+      line-height: 1.2;
+    }
+
+    .project-wrapped p {
+      font-size: 1rem;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
     .publication {
       padding: 22px;
       border: 1px solid var(--line);
@@ -266,6 +357,21 @@
       margin: 0 0 12px;
       color: var(--muted);
       font-size: 0.98rem;
+    }
+
+    .company-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .company-logo {
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      object-fit: contain;
+      vertical-align: -3px;
     }
 
     .footer {
@@ -306,6 +412,26 @@
 
       .interest-grid {
         grid-template-columns: 1fr;
+      }
+
+      .project {
+        grid-template-columns: 1fr;
+      }
+
+      .project-gallery {
+        grid-template-rows: repeat(2, auto);
+        height: auto;
+      }
+
+      .project-gallery img {
+        height: auto;
+        aspect-ratio: 16 / 9;
+      }
+
+      .project-figure {
+        float: none;
+        width: 100%;
+        margin: 0 0 18px;
       }
     }
 
@@ -350,6 +476,10 @@
       .footer {
         flex-direction: column;
       }
+
+      .project {
+        padding: 16px;
+      }
     }
   </style>
 </head>
@@ -362,6 +492,7 @@
       </div>
       <div class="nav-links">
         <a href="#bio">About</a>
+        <a href="#projects">Projects</a>
         <a href="#publications">Publications</a>
       </div>
     </nav>
@@ -370,7 +501,7 @@
   <main>
     <section class="hero" id="about">
       <div>
-        <p class="eyebrow affiliation-line"><span>PhD student in</span><a class="nu-link" href="https://www.northwestern.edu/" target="_blank" rel="noopener"><img class="nu-logo" src="https://cdn.freebiesupply.com/logos/large/2x/northwestern-university-logo-png-transparent.png" alt="Northwestern University"></a></p>
+        <p class="eyebrow affiliation-line"><span>Computer Science PhD student in</span><a class="nu-link" href="https://www.northwestern.edu/" target="_blank" rel="noopener"><img class="nu-logo" src="https://cdn.freebiesupply.com/logos/large/2x/northwestern-university-logo-png-transparent.png" alt="Northwestern University"></a></p>
         <h1>Haotian Chu</h1>
         <p class="lead">My research focuses on building secure, scalable, and trustworthy systems. I am particularly interested in translating advances in security and privacy into production environments, as well as understanding the emerging challenges posed by AI-driven agentic systems.</p>
       </div>
@@ -390,34 +521,81 @@
         <div>
           <section class="section" id="bio">
             <h2>About Me</h2>
-            <p>I'm a third-year PhD student in cryptography at Northwestern University, advised by <a href="https://wangxiao1254.github.io/">Prof. Xiao Wang</a>. Before joining Northwestern, I obtained my bachelor's degree from the <a href="https://acm.sjtu.edu.cn/home">ACM Honors Class</a>, Shanghai Jiao Tong University. In my junior year at SJTU, I worked as a student intern at LATTICE Lab, advised by <a href="https://scholar.google.co.uk/citations?user=lpRkCB4AAAAJ&amp;hl=en">Prof. Yu Yu</a>. During this internship, I mainly worked on proving the security of cryptographic primitives with low-level methods. Last fall, I was a research intern at <a href="https://chainlinklabs.com/">Chainlink Labs</a>, advised by <a href="http://www.neven.org/">Gregory Neven</a>.</p>
+            <p>I'm a third-year PhD student in cryptography at Northwestern University, 
+              advised by <a href="https://wangxiao1254.github.io/">Prof. Xiao Wang</a>. 
+              Before joining Northwestern, I obtained my bachelor's degree from 
+              the <a href="https://acm.sjtu.edu.cn/home">ACM Honors Class</a>, 
+              Shanghai Jiao Tong University. In my junior year at SJTU, I worked as a student 
+              intern advised by <a href="https://scholar.google.co.uk/citations?user=lpRkCB4AAAAJ&amp;hl=en">Prof. Yu Yu</a>. 
+              During this internship, I mainly worked on using formal verification and automated reasoning tools to audit the security of security protocols.
+              Last fall, I was a Research Intern at <a href="https://chainlinklabs.com/">Chainlink Labs</a>, 
+              advised by <a href="http://www.neven.org/">Gregory Neven</a>. My work focused on integrating advanced cryptographic techniques into <a href="https://chain.link/blog/chainlink-confidential-compute">Chainlink Confidential Compute</a>, helping bridge cutting-edge security research with production-scale decentralized infrastructure.</p>
             <p>
 I have experience designing and building secure, scalable software systems, ranging from 
 research prototypes to production-oriented platforms. My work includes developing advanced 
 security and privacy technologies, building AI-powered agent systems, and creating 
 infrastructure that bridges cutting-edge research with real-world applications. 
 I have also designed and deployed agentic workflows and AI platforms for decentralized 
-collaboration and task execution, 
-including <a href="https://github.com/ixxxMrAnderson/bountyland_EN">BountyLand</a>.
+collaboration and task execution.
 </p>
+          </section>
+
+          <section class="section" id="projects">
+            <h2>Ongoing Projects</h2>
+            <div class="project-list">
+              <article class="project project-wrapped">
+                <figure class="project-figure">
+                  <img src="img/deco.jpg" alt="LLM agent traffic passing through a potentially malicious third-party API router">
+                  <figcaption>Image adapted from <a href="https://arxiv.org/abs/2604.08407" target="_blank" rel="noopener"><em>Your Agent Is Mine: Measuring Malicious Intermediary Attacks on the LLM Supply Chain</em></a>.</figcaption>
+                </figure>
+                <h3>Securing the LLM Agent Supply Chain</h3>
+                <p>LLM agents increasingly depend on third-party API routers to connect with upstream model providers. Because these intermediaries can read and modify plaintext requests and responses, a malicious router may inject instructions, alter tool calls, or exfiltrate credentials without being noticed.</p>
+                <p>Recent measurements found real routers performing malicious injection and accessing sensitive canary credentials, exposing a serious integrity gap in today’s agent infrastructure.</p>
+                <p><strong>We are working on a cryptographic way to solve this problem.</strong> Our goal is to protect the integrity of agent-model communication and make unauthorized manipulation detectable, even when requests pass through untrusted intermediaries.</p>
+              </article>
+
+              <article class="project project-wrapped">
+                <figure class="project-figure">
+                  <img src="img/quantum.jpg" alt="Quantum computing hardware illustrating the threat to current cryptographic systems">
+                  <figcaption>Image from <a href="https://www.forbes.com/sites/digital-assets/2026/03/31/google-finds-quantum-computers-could-break-bitcoin-sooner-than-expected/" target="_blank" rel="noopener">Forbes: <em>Google Finds Quantum Computers Could Break Bitcoin Sooner Than Expected</em></a>.</figcaption>
+                </figure>
+                <h3>Quantum-Ready Distributed Systems</h3>
+                <p>Large-scale quantum computers threaten the public-key cryptography used by Bitcoin and many other distributed systems. Recent Google research suggests that breaking elliptic-curve cryptography may require far fewer physical qubits than earlier estimates, bringing the need for quantum readiness closer.</p>
+                <p>The challenge is especially difficult for decentralized infrastructure: cryptographic migrations must remain secure while coordinating many independent participants, handling legacy state, and continuing to scale.</p>
+                <p><strong>We are working on a solution based purely on quantum assumptions for distributed and scalable systems.</strong> Our goal is to provide quantum-ready security without sacrificing the decentralization or performance these systems require.</p>
+              </article>
+
+              <article class="project">
+                <div class="project-gallery">
+                  <img src="img/intro_page_screenshot.jpg" alt="BountyLand wanted-order marketplace">
+                  <img src="img/agent_choose.png" alt="Choosing a specialized agent in BountyLand">
+                </div>
+                <div class="project-copy">
+                  <h3><a href="https://github.com/ixxxMrAnderson/bountyland_EN" target="_blank" rel="noopener">BountyLand</a></h3>
+                  <p>BountyLand is a Web3 marketplace for long-horizon agent tasks. Users post a computation bounty, then hire a specialized agent or open the task to human workers.</p>
+                  <p>The platform covers the full workflow—from task routing and agent execution to validator scoring and on-chain reward settlement. Current agents can build Web3 datasets and debug public code repositories.</p>
+                  <p>Each run produces traceable artifacts, reports, and execution logs for review. The prototype combines a React interface, a LangGraph agent core, and Solidity contracts for recording results and allocating rewards.</p>
+                  <a class="project-link" href="https://github.com/ixxxMrAnderson/bountyland_EN" target="_blank" rel="noopener">Explore BountyLand on GitHub →</a>
+                </div>
+              </article>
+            </div>
           </section>
 
           <section class="section" id="publications">
             <h2>Publications</h2>
             <div class="publication-list">
               <article class="publication">
-                <h3><a href="https://eprint.iacr.org/2023/1610">An Efficient ZK Compiler from SIMD Circuits to General Circuits</a></h3>
-                <p class="meta">Dung Bui, <strong>Haotian Chu</strong>, Geoffroy Couteau, Xiao Wang, Chenkai Weng, Kang Yang, Yu Yu. <a href="https://link.springer.com/journal/145">Journal of Cryptology</a> 2024.</p>
-                <p>This work is done during my internship in Xiao's lab (in my senior year as an undergrad). In this paper, Xiao and I found a general framework for building efficient zero-knowledge proofs, a core technique in modern cryptography.</p>
-                <p>This is a rather theoretical and algorithmic paper focused on methodological improvement, showing how to transform a parallelized algorithm into general-purpose protocols. We also present concrete instantiations, implementation, and benchmarks.</p>
-                <p><strong>This paper is accepted by <a href="https://link.springer.com/journal/145">Journal of Cryptology</a> 2024.</strong></p>
+                <h3><a href="https://eprint.iacr.org/2025/1056">Private Signaling Secure Against Actively Corrupted Servers</a></h3>
+                <p class="meta"><strong>Haotian Chu</strong>, Xiao Wang, Yanxue Jia. Shepherding completed for <strong><a href="https://www.sigsac.org/ccs/CCS2026/">CCS 2026</a></strong>.</p>
+                <p>Private signaling addresses the challenge that users cannot efficiently retrieve their transactions on privacy-preserving chains, where transaction data is encrypted by design. This is a significant bottleneck for user experience in large Web3 systems such as <a class="company-link" href="https://z.cash/">Zcash<img class="company-logo" src="https://z.cash/favicon.ico" alt=""></a> and <a class="company-link" href="https://aztec.network/">Aztec<img class="company-logo" src="https://cdn.prod.website-files.com/6847005bc403085c1aa846e0/692e4acd637f15bb65678746_favicon.ico" alt=""></a>.</p>
+                <p>Prior work addresses this problem using hardware security, while we provide an algorithmic solution with rigorous mathematical proofs of security. I developed both the core idea and the full implementation independently.</p>
               </article>
 
               <article class="publication">
-                <h3><a href="https://eprint.iacr.org/2025/1056">Private Signaling Secure Against Actively Corrupted Servers</a></h3>
-                <p class="meta"><strong>Haotian Chu</strong>, Xiao Wang, Yanxue Jia. Shepherding completed for CCS 2026.</p>
-                <p>Private signaling addresses the challenge that users cannot efficiently retrieve their transactions on privacy-preserving chains, where transaction data is encrypted by design. This is a significant bottleneck for user experience in large Web3 systems such as <a href="https://z.cash/">Zcash</a> and <a href="https://aztec.network/">Aztec</a>.</p>
-                <p>Prior work addresses this problem using hardware security, while we provide an algorithmic solution with rigorous mathematical proofs of security. I developed both the core idea and the full implementation independently.</p>
+                <h3><a href="https://eprint.iacr.org/2023/1610">An Efficient ZK Compiler from SIMD Circuits to General Circuits</a></h3>
+                <p class="meta">Dung Bui, <strong>Haotian Chu</strong>, Geoffroy Couteau, Xiao Wang, Chenkai Weng, Kang Yang, Yu Yu. <strong><a href="https://link.springer.com/journal/145">Journal of Cryptology</a> 2024.</strong></p>
+                <p>This work is done during my internship in Xiao’s lab (in my senior year as an undergrad). In this paper, Xiao and I found a general framework for building efficient zero-knowledge proofs, a core technique in modern cryptography.</p>
+                <p>This is a rather theoretical and algorithmic paper focused on methodological improvement, showing how to transform a parallelized algorithm into general-purpose protocols. We also present concrete instantiations, implementation, and benchmarks.</p>
               </article>
             </div>
           </section>
