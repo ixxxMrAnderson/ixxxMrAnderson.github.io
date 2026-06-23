@@ -6,15 +6,15 @@
   <title>Haotian Chu - Website Concept</title>
   <style>
     :root {
-      --ink: #1f2428;
-      --muted: #69727a;
-      --paper: #fbfaf7;
-      --panel: #ffffff;
-      --line: #dad4c8;
-      --accent: #2f6f73;
-      --accent-strong: #174f53;
-      --soft: #eef4f1;
-      --gold: #b78232;
+      --ink: #f4efe7;
+      --muted: #a9a29a;
+      --paper: #050505;
+      --panel: #050505;
+      --line: #262321;
+      --accent: #e13131;
+      --accent-strong: #ffefdf;
+      --soft: #101010;
+      --red: #f01818;
       --max: 1120px;
     }
 
@@ -26,6 +26,7 @@
       background: var(--paper);
       font-family: Georgia, "Times New Roman", serif;
       line-height: 1.55;
+      cursor: none;
     }
 
     a {
@@ -39,72 +40,129 @@
       max-width: 100%;
     }
 
+    #haotian-particle-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    #haotian-cursor {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 1000;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0;
+      pointer-events: none;
+      mix-blend-mode: difference;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+      will-change: transform, opacity;
+    }
+
+    .hero-name {
+      margin: 0;
+      max-width: 780px;
+      color: var(--red);
+      font-family: Impact, "Arial Black", Haettenschweiler, system-ui, sans-serif;
+      font-size: clamp(48px, 8.6vw, 122px);
+      font-weight: 900;
+      line-height: 0.82;
+      letter-spacing: 0;
+      text-align: left;
+      text-transform: none;
+      user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
+      text-shadow:
+        0 0 1px rgba(255, 255, 255, 0.2),
+        0 24px 64px rgba(240, 24, 24, 0.22);
+      transform: scaleX(0.92);
+    }
+
     .site-header {
       border-bottom: 1px solid var(--line);
-      background: rgba(251, 250, 247, 0.92);
+      background: rgba(5, 5, 5, 0.9);
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
       backdrop-filter: blur(10px);
     }
 
     .nav {
-      width: min(var(--max), calc(100% - 40px));
+      width: calc(100% - 40px);
+      max-width: 1760px;
       margin: 0 auto;
       min-height: 68px;
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       align-items: center;
-      justify-content: space-between;
       gap: 24px;
     }
 
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-
-    .brand a {
-      color: inherit;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
-    }
-
-    .brand-logo {
-      width: 30px;
-      height: 30px;
-      object-fit: contain;
-    }
-
     .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      font-size: 0.98rem;
+      display: contents;
+      font-family: Impact, "Arial Black", Haettenschweiler, system-ui, sans-serif;
+      font-size: clamp(0.95rem, 1.35vw, 1.25rem);
+      line-height: 1;
+      text-transform: uppercase;
     }
 
     .nav-links a {
+      display: flex;
+      align-items: center;
+      min-height: 68px;
       color: var(--ink);
       text-decoration: none;
+    }
+
+    .nav-links a:nth-child(1) {
+      justify-content: flex-start;
+    }
+
+    .nav-links a:nth-child(2) {
+      justify-content: center;
+    }
+
+    .nav-links a:nth-child(3) {
+      justify-content: flex-end;
+    }
+
+    .nav-links a span {
+      display: inline-block;
+      padding: 10px 0;
       border-bottom: 1px solid transparent;
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover span,
+    .nav-links a:focus-visible span {
       border-bottom-color: currentColor;
     }
 
     .hero {
+      position: relative;
+      z-index: 2;
       width: min(var(--max), calc(100% - 40px));
       margin: 0 auto;
-      min-height: calc(100vh - 68px);
+      min-height: calc(82vh - 68px);
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) 360px;
       align-items: center;
       gap: 56px;
       padding: 56px 0 64px;
+    }
+
+    .hero-copy {
+      padding: 26px 28px 30px;
+      border: 1px solid var(--line);
+      background: rgba(17, 16, 15, 0.76);
+      border-radius: 6px;
+      backdrop-filter: blur(2px);
     }
 
     .eyebrow {
@@ -147,8 +205,9 @@
     .lead {
       max-width: 690px;
       margin: 28px 0 0;
-      color: #3d464b;
+      color: #fff;
       font-size: clamp(1.15rem, 2vw, 1.45rem);
+      font-weight: 700;
     }
 
     .hero-image img {
@@ -161,7 +220,9 @@
 
     .content-band {
       border-top: 1px solid var(--line);
-      background: var(--panel);
+      background: transparent;
+      position: relative;
+      z-index: 2;
     }
 
     .content {
@@ -177,7 +238,11 @@
       position: sticky;
       top: 96px;
       align-self: start;
-      padding-top: 8px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(17, 16, 15, 0.76);
+      border-radius: 6px;
+      backdrop-filter: blur(2px);
       color: var(--muted);
       font-size: 0.98rem;
     }
@@ -197,20 +262,29 @@
 
     .section {
       scroll-margin-top: 96px;
-      padding-bottom: 44px;
+      padding: 22px;
       border-bottom: 1px solid var(--line);
+      border: 1px solid var(--line);
+      background: rgba(17, 16, 15, 0.76);
+      border-radius: 6px;
+      backdrop-filter: blur(2px);
       margin-bottom: 44px;
     }
 
     .section:last-child {
-      border-bottom: 0;
       margin-bottom: 0;
-      padding-bottom: 0;
+    }
+
+    .section + .section {
+      margin-top: 44px;
     }
 
     h2 {
       margin: 0 0 18px;
+      color: var(--red);
+      font-family: Impact, "Arial Black", Haettenschweiler, system-ui, sans-serif;
       font-size: clamp(1.75rem, 3vw, 2.4rem);
+      font-weight: 900;
       line-height: 1.08;
       letter-spacing: 0;
     }
@@ -232,7 +306,7 @@
       min-height: 116px;
       padding: 18px;
       border: 1px solid var(--line);
-      background: var(--soft);
+      background: rgba(16, 16, 16, 0.72);
       border-radius: 6px;
     }
 
@@ -313,7 +387,7 @@
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 4px;
-      background: var(--panel);
+      background: rgba(5, 5, 5, 0.72);
     }
 
     .project-figure figcaption {
@@ -342,8 +416,8 @@
     .publication {
       padding: 22px;
       border: 1px solid var(--line);
-      border-left: 4px solid var(--gold);
-      background: #fffdf9;
+      border-left: 4px solid var(--accent);
+      background: rgba(17, 16, 15, 0.76);
       border-radius: 6px;
     }
 
@@ -375,6 +449,8 @@
     }
 
     .footer {
+      position: relative;
+      z-index: 2;
       width: min(var(--max), calc(100% - 40px));
       margin: 0 auto;
       padding: 32px 0 44px;
@@ -436,6 +512,18 @@
     }
 
     @media (max-width: 560px) {
+      body {
+        cursor: auto;
+      }
+
+      #haotian-cursor {
+        display: none;
+      }
+
+      .hero-name {
+        font-size: clamp(42px, 13vw, 72px);
+      }
+
       .affiliation-line {
         gap: 8px;
       }
@@ -445,16 +533,14 @@
       }
 
       .nav {
-        width: min(var(--max), calc(100% - 28px));
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 16px 0;
+        width: calc(100% - 28px);
+        min-height: 58px;
+        padding: 0;
+        gap: 10px;
       }
 
-      .nav-links {
-        width: 100%;
-        justify-content: space-between;
-        gap: 10px;
+      .nav-links a {
+        min-height: 58px;
       }
 
       .hero,
@@ -484,25 +570,24 @@
   </style>
 </head>
 <body>
+  <canvas id="haotian-particle-canvas" aria-hidden="true"></canvas>
+  <div id="haotian-cursor" aria-hidden="true"></div>
+
   <header class="site-header">
     <nav class="nav" aria-label="Primary navigation">
-      <div class="brand">
-        <img class="brand-logo" src="img/neo.png" alt="">
-        <span>Haotian Chu (<a href="https://en.wikipedia.org/wiki/Neo_%28The_Matrix%29" target="_blank" rel="noopener">Neo Anderson</a> wannabe)</span>
-      </div>
       <div class="nav-links">
-        <a href="#bio">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#publications">Publications</a>
+        <a href="#bio"><span>About</span></a>
+        <a href="#projects"><span>Projects</span></a>
+        <a href="#publications"><span>Publications</span></a>
       </div>
     </nav>
   </header>
 
   <main>
     <section class="hero" id="about">
-      <div>
+      <div class="hero-copy">
         <p class="eyebrow affiliation-line"><span>Computer Science PhD student in</span><a class="nu-link" href="https://www.northwestern.edu/" target="_blank" rel="noopener"><img class="nu-logo" src="https://cdn.freebiesupply.com/logos/large/2x/northwestern-university-logo-png-transparent.png" alt="Northwestern University"></a></p>
-        <h1>Haotian Chu</h1>
+        <h1 class="hero-name">Haotian Chu</h1>
         <p class="lead">My research focuses on building secure, scalable, and trustworthy systems. I am particularly interested in translating advances in security and privacy into production environments, as well as understanding the emerging challenges posed by AI-driven agentic systems.</p>
       </div>
       <div class="hero-image">
@@ -514,7 +599,7 @@
       <div class="content">
         <aside class="side-note">
           <strong>Research Interests</strong>
-          <p>My research interests lie at the intersection of security, agentic systems, and applied cryptography. I am interested in developing efficient and trustworthy systems, understanding their security properties, and exploring how advances in these areas can enable new real-world applications. </p>
+          <p>My research lies at the intersection of security, agentic systems, and applied cryptography, with a focus on building efficient and trustworthy systems, understanding their security properties, and translating these advances into real-world applications.</p>
           <p class="focus-line">My current focus includes quantum readiness and the security challenges in the structure of agentic economy.</p>
         </aside>
 
@@ -530,14 +615,7 @@
               During this internship, I mainly worked on using formal verification and automated reasoning tools to audit the security of security protocols.
               Last fall, I was a Research Intern at <a href="https://chainlinklabs.com/">Chainlink Labs</a>, 
               advised by <a href="http://www.neven.org/">Gregory Neven</a>. My work focused on integrating advanced cryptographic techniques into <a href="https://chain.link/blog/chainlink-confidential-compute">Chainlink Confidential Compute</a>, helping bridge cutting-edge security research with production-scale decentralized infrastructure.</p>
-            <p>
-I have experience designing and building secure, scalable software systems, ranging from 
-research prototypes to production-oriented platforms. My work includes developing advanced 
-security and privacy technologies, building AI-powered agent systems, and creating 
-infrastructure that bridges cutting-edge research with real-world applications. 
-I have also designed and deployed agentic workflows and AI platforms for decentralized 
-collaboration and task execution.
-</p>
+            <p>I have experience designing and implementing secure, scalable software systems, ranging from research prototypes to production-oriented platforms. I have also designed and deployed agentic workflows and AI platforms for computation outsourcing.</p>
           </section>
 
           <section class="section" id="projects">
@@ -587,15 +665,15 @@ collaboration and task execution.
               <article class="publication">
                 <h3><a href="https://eprint.iacr.org/2025/1056">Private Signaling Secure Against Actively Corrupted Servers</a></h3>
                 <p class="meta"><strong>Haotian Chu</strong>, Xiao Wang, Yanxue Jia. Shepherding completed for <strong><a href="https://www.sigsac.org/ccs/CCS2026/">CCS 2026</a></strong>.</p>
-                <p>Private signaling addresses the challenge that users cannot efficiently retrieve their transactions on privacy-preserving chains, where transaction data is encrypted by design. This is a significant bottleneck for user experience in large Web3 systems such as <a class="company-link" href="https://z.cash/">Zcash<img class="company-logo" src="https://z.cash/favicon.ico" alt=""></a> and <a class="company-link" href="https://aztec.network/">Aztec<img class="company-logo" src="https://cdn.prod.website-files.com/6847005bc403085c1aa846e0/692e4acd637f15bb65678746_favicon.ico" alt=""></a>.</p>
-                <p>Prior work addresses this problem using hardware security, while we provide an algorithmic solution with rigorous mathematical proofs of security. I developed both the core idea and the full implementation independently.</p>
+                <p>Private signaling addresses the challenge that users cannot efficiently retrieve their relevant transactions on privacy-preserving blockchains, where transaction data is encrypted by design. This is a fundamental difficulty faced by many private database systems: they often have to sacrifice user experience for the feature of privacy, which becomes a significant bottleneck in large Web3 systems such as <a class="company-link" href="https://z.cash/">Zcash<img class="company-logo" src="https://z.cash/favicon.ico" alt=""></a> and <a class="company-link" href="https://aztec.network/">Aztec<img class="company-logo" src="https://cdn.prod.website-files.com/6847005bc403085c1aa846e0/692e4acd637f15bb65678746_favicon.ico" alt=""></a>.</p>
+                <p><strong>To the best of our knowledge, this is the first cryptographic algorithmic solution to private signaling that is secure against malicious adversaries.</strong> Prior work addresses this problem using hardware security, while our approach provides rigorous mathematical proofs of security without relying on trusted hardware. <strong>I developed both the core idea and the full implementation independently.</strong></p>
               </article>
 
               <article class="publication">
                 <h3><a href="https://eprint.iacr.org/2023/1610">An Efficient ZK Compiler from SIMD Circuits to General Circuits</a></h3>
                 <p class="meta">Dung Bui, <strong>Haotian Chu</strong>, Geoffroy Couteau, Xiao Wang, Chenkai Weng, Kang Yang, Yu Yu. <strong><a href="https://link.springer.com/journal/145">Journal of Cryptology</a> 2024.</strong></p>
-                <p>This work is done during my internship in Xiao’s lab (in my senior year as an undergrad). In this paper, Xiao and I found a general framework for building efficient zero-knowledge proofs, a core technique in modern cryptography.</p>
-                <p>This is a rather theoretical and algorithmic paper focused on methodological improvement, showing how to transform a parallelized algorithm into general-purpose protocols. We also present concrete instantiations, implementation, and benchmarks.</p>
+                <p>ZK (Zero-Knowledge Proofs) allows one party to prove that a statement is true without revealing the underlying private information. In finance, for example, a user could prove that they can afford a certain futures position without revealing their bank account balance.</p>
+                <p>This is a rather theoretical and algorithmic paper focused on methodological improvement, showing how to transform a parallelized algorithm into general-purpose protocols. We also present concrete instantiations, implementation, and benchmarks. <strong>I developed the core idea with Xiao as an undergrad student.</strong></p>
               </article>
             </div>
           </section>
@@ -608,5 +686,6 @@ collaboration and task execution.
     <span>© 2026 Haotian Chu</span>
     <span>Northwestern University · Cryptography</span>
   </footer>
+  <script src="js/haotian-cursor.js"></script>
 </body>
 </html>
