@@ -9,6 +9,7 @@
   const RENDER_SCALE = 0.82;
   const GRID_SIZE = 74;
   const MAX_PARTICLES = 23000;
+  const PARTICLE_MOVE_SCALE = 0.56;
 
   const pointer = {
     active: false,
@@ -17,10 +18,12 @@
     y: 0,
     px: 0,
     py: 0,
+    vx: 0,
+    vy: 0,
     tx: 0,
     ty: 0,
-    radius: 136,
-    strength: 4.8,
+    radius: 168,
+    strength: 4.4,
     lastMove: 0,
   };
 
@@ -55,6 +58,10 @@
     return a + (b - a) * t;
   }
 
+  function getParticleColor() {
+    return getComputedStyle(document.documentElement).getPropertyValue("--theme-color").trim() || "#5f8fff";
+  }
+
   function cellKey(x, y) {
     return `${Math.floor(x / GRID_SIZE)},${Math.floor(y / GRID_SIZE)}`;
   }
@@ -76,8 +83,8 @@
       y,
       vx: 0,
       vy: 0,
-      radius: rand(1.0, 1.85),
-      alpha: rand(0.32, 0.74),
+      radius: rand(1.55, 2.8),
+      alpha: rand(0.08, 0.24),
       phase: rand(0, Math.PI * 2),
       drift: rand(0.35, 1.05),
     };
@@ -162,7 +169,7 @@
     staticCtx = staticLayer.getContext("2d", { alpha: true });
     staticCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     staticCtx.clearRect(0, 0, width, height);
-    staticCtx.fillStyle = "#b8b1aa";
+    staticCtx.fillStyle = getParticleColor();
 
     for (const p of particles) {
       staticCtx.globalAlpha = p.alpha;
@@ -224,8 +231,8 @@
   function disturbParticle(p) {
     if (!pointer.active) return;
 
-    const speed = Math.hypot(pointer.x - pointer.px, pointer.y - pointer.py);
-    const point = speed > 4
+    const speed = Math.hypot(pointer.vx, pointer.vy);
+    const point = speed > 1
       ? closestPointOnSegment(p.x, p.y, pointer.px, pointer.py, pointer.x, pointer.y)
       : { x: pointer.x, y: pointer.y };
     const dx = p.x - point.x;
@@ -233,18 +240,18 @@
     const distance = Math.hypot(dx, dy);
     if (distance <= 0 || distance > pointer.radius) return;
 
-    const falloff = (1 - distance / pointer.radius) ** 2.2;
+    const falloff = (1 - distance / pointer.radius) ** 2.25;
     const nx = dx / distance;
     const ny = dy / distance;
     const motion = Math.max(1, speed);
-    const mx = (pointer.x - pointer.px) / motion;
-    const my = (pointer.y - pointer.py) / motion;
-    const drag = Math.min(2.5, motion / 28);
+    const mx = pointer.vx / motion;
+    const my = pointer.vy / motion;
+    const drag = Math.min(1.8, motion / 42);
 
-    p.vx += nx * falloff * pointer.strength * 0.24;
-    p.vy += ny * falloff * pointer.strength * 0.24;
-    p.vx += mx * falloff * pointer.strength * drag * 0.28;
-    p.vy += my * falloff * pointer.strength * drag * 0.28;
+    p.vx += nx * falloff * pointer.strength * 0.026;
+    p.vy += ny * falloff * pointer.strength * 0.026;
+    p.vx += mx * falloff * pointer.strength * drag * 0.82;
+    p.vy += my * falloff * pointer.strength * drag * 0.82;
   }
 
   function updateActiveParticles() {
@@ -256,35 +263,41 @@
       p.phase += 0.008;
       disturbParticle(p);
 
-      const homeDx = p.homeX - p.x;
-      const homeDy = p.homeY - p.y;
-      const offset = Math.abs(homeDx) + Math.abs(homeDy);
+      const previousOffsetX = p.x - p.homeX;
+      const previousOffsetY = p.y - p.homeY;
+      const homeDx = -previousOffsetX;
+      const homeDy = -previousOffsetY;
       const recovering = !pointer.active;
-      const current = pointer.active ? 1 : clamp(offset / 180, 0, 0.36);
-      const pull = recovering ? 0.00034 : 0.0016;
-      const damping = recovering ? 0.885 : 0.932;
-      const moveScale = recovering ? 0.32 : 1;
-      const maxSpeed = recovering ? 0.24 : 8;
-      const swirlX = Math.sin(p.phase + p.y * 0.018) * 0.004 * p.drift * current;
-      const swirlY = Math.cos(p.phase * 0.9 + p.x * 0.014) * 0.0036 * p.drift * current;
+      const wakeAge = performance.now() - pointer.lastMove;
+      const wake = pointer.active ? 0.16 : clamp(1 - wakeAge / 2800, 0, 1) * 0.08;
+      const offset = Math.abs(homeDx) + Math.abs(homeDy);
+      const current = wake * clamp(offset / 220, 0.12, 1);
+      const pull = recovering ? 0.00012 : 0.0007;
+      const damping = recovering ? 0.982 : 0.972;
+      const swirlX = Math.sin(p.phase + p.y * 0.016) * 0.0034 * p.drift * current;
+      const swirlY = Math.cos(p.phase * 0.86 + p.x * 0.012) * 0.003 * p.drift * current;
 
       p.vx += homeDx * pull + swirlX;
       p.vy += homeDy * pull + swirlY;
       p.vx *= damping;
       p.vy *= damping;
+      p.x += p.vx * PARTICLE_MOVE_SCALE;
+      p.y += p.vy * PARTICLE_MOVE_SCALE;
 
-      const velocity = Math.hypot(p.vx, p.vy);
-      if (velocity > maxSpeed) {
-        const limit = maxSpeed / velocity;
-        p.vx *= limit;
-        p.vy *= limit;
+      const nextOffsetX = p.x - p.homeX;
+      const nextOffsetY = p.y - p.homeY;
+      if (!pointer.active && previousOffsetX * nextOffsetX < 0 && Math.abs(nextOffsetX) < 0.08) {
+        p.x = p.homeX;
+        p.vx = 0;
+      }
+      if (!pointer.active && previousOffsetY * nextOffsetY < 0 && Math.abs(nextOffsetY) < 0.08) {
+        p.y = p.homeY;
+        p.vy = 0;
       }
 
-      p.x += p.vx * moveScale;
-      p.y += p.vy * moveScale;
-
+      const nextOffset = Math.abs(p.homeX - p.x) + Math.abs(p.homeY - p.y);
       const speed = Math.abs(p.vx) + Math.abs(p.vy);
-      if (!pointer.active && speed < 0.012 && offset < 0.22) {
+      if (!pointer.active && speed < 0.0025 && nextOffset < 0.06) {
         p.x = p.homeX;
         p.y = p.homeY;
         p.vx = 0;
@@ -304,17 +317,17 @@
     if (active.size === 0) return;
 
     ctx.save();
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.globalAlpha = 1;
     for (const index of active) {
       const p = particles[index];
-      const erase = p.radius + 1.8;
-      ctx.globalAlpha = 0.9;
-      ctx.fillStyle = "#050505";
       ctx.beginPath();
-      ctx.arc(p.homeX, p.homeY, erase, 0, Math.PI * 2);
+      ctx.arc(p.homeX, p.homeY, p.radius + 1.8, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    ctx.fillStyle = "#b8b1aa";
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = getParticleColor();
     for (const index of active) {
       const p = particles[index];
       const stretch = clamp(Math.hypot(p.vx, p.vy) / 12, 0, 1);
@@ -346,7 +359,7 @@
   }
 
   function tick(time) {
-    if (pointer.active && time - pointer.lastMove > 150) pointer.active = false;
+    if (pointer.active && time - pointer.lastMove > 760) pointer.active = false;
     updateActiveParticles();
     draw();
 
@@ -364,6 +377,28 @@
     raf = window.requestAnimationFrame(tick);
   }
 
+  function getThemeButtonTarget(target) {
+    if (!(target instanceof Element)) return null;
+    return target.closest("[data-theme-option]");
+  }
+
+  function updateCursorTarget(event) {
+    const themeButton = getThemeButtonTarget(event.target);
+    cursor.classList.toggle("is-theme-target", Boolean(themeButton));
+
+    if (themeButton) {
+      const rect = themeButton.getBoundingClientRect();
+      pointer.tx = rect.left + rect.width / 2;
+      pointer.ty = rect.top + rect.height / 2;
+      targetCursorScale = 0.32;
+      return;
+    }
+
+    pointer.tx = event.clientX;
+    pointer.ty = event.clientY;
+    targetCursorScale = event.buttons ? 0.72 : 1;
+  }
+
   function onPointerMove(event) {
     if (!finePointer.matches) return;
     if (!pointer.entered) {
@@ -372,6 +407,8 @@
       pointer.y = event.clientY;
       pointer.px = event.clientX;
       pointer.py = event.clientY;
+      pointer.vx = 0;
+      pointer.vy = 0;
       cursorX = event.clientX;
       cursorY = event.clientY;
     } else {
@@ -379,12 +416,13 @@
       pointer.py = pointer.y;
       pointer.x = event.clientX;
       pointer.y = event.clientY;
+      pointer.vx = pointer.x - pointer.px;
+      pointer.vy = pointer.y - pointer.py;
     }
 
-    pointer.tx = event.clientX;
-    pointer.ty = event.clientY;
-    pointer.radius = event.buttons ? 190 : 136;
-    pointer.strength = event.buttons ? 7.5 : 4.8;
+    updateCursorTarget(event);
+    pointer.radius = event.buttons ? 224 : 168;
+    pointer.strength = event.buttons ? 5.8 : 4.4;
     pointer.active = true;
     pointer.lastMove = performance.now();
     targetCursorOpacity = 1;
@@ -394,21 +432,22 @@
   function onPointerLeave() {
     pointer.active = false;
     pointer.entered = false;
+    cursor.classList.remove("is-theme-target");
     targetCursorOpacity = 0;
     requestTick();
   }
 
-  function onPointerDown() {
-    targetCursorScale = 0.72;
-    pointer.radius = 190;
-    pointer.strength = 7.5;
+  function onPointerDown(event) {
+    targetCursorScale = getThemeButtonTarget(event.target) ? 0.32 : 0.72;
+    pointer.radius = 224;
+    pointer.strength = 5.8;
     requestTick();
   }
 
-  function onPointerUp() {
-    targetCursorScale = 1;
-    pointer.radius = 136;
-    pointer.strength = 4.8;
+  function onPointerUp(event) {
+    targetCursorScale = getThemeButtonTarget(event.target) ? 0.32 : 1;
+    pointer.radius = 168;
+    pointer.strength = 4.4;
     requestTick();
   }
 
@@ -417,6 +456,10 @@
   window.addEventListener("pointerleave", onPointerLeave);
   window.addEventListener("pointerdown", onPointerDown);
   window.addEventListener("pointerup", onPointerUp);
+  window.addEventListener("haotian-theme-change", () => {
+    renderStaticLayer();
+    draw();
+  });
   window.addEventListener("beforeunload", () => window.cancelAnimationFrame(raf));
 
   resize();

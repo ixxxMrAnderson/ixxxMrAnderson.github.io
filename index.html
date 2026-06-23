@@ -11,11 +11,25 @@
       --paper: #050505;
       --panel: #050505;
       --line: #262321;
-      --accent: #e13131;
-      --accent-strong: #ffefdf;
+      --theme-color: #5f8fff;
+      --theme-glow: rgba(95, 143, 255, 0.22);
+      --accent: var(--theme-color);
+      --accent-strong: #dbe6ff;
       --soft: #101010;
-      --red: #f01818;
+      --red: var(--theme-color);
       --max: 1120px;
+    }
+
+    :root[data-theme="red"] {
+      --theme-color: #f01818;
+      --theme-glow: rgba(240, 24, 24, 0.22);
+      --accent-strong: #ffefdf;
+    }
+
+    :root[data-theme="blue"] {
+      --theme-color: #5f8fff;
+      --theme-glow: rgba(95, 143, 255, 0.22);
+      --accent-strong: #dbe6ff;
     }
 
     * { box-sizing: border-box; }
@@ -23,7 +37,10 @@
     body {
       margin: 0;
       color: var(--ink);
-      background: var(--paper);
+      background:
+        linear-gradient(rgba(5, 5, 5, 0.52), rgba(5, 5, 5, 0.72)),
+        url("img/bg.png") center top / cover fixed no-repeat,
+        var(--paper);
       font-family: Georgia, "Times New Roman", serif;
       line-height: 1.55;
       cursor: none;
@@ -56,13 +73,20 @@
       z-index: 1000;
       width: 72px;
       height: 72px;
+      border: 1px solid transparent;
       border-radius: 50%;
       background: #fff;
       opacity: 0;
       pointer-events: none;
       mix-blend-mode: difference;
       transform: translate3d(-50%, -50%, 0) scale(1);
-      will-change: transform, opacity;
+      will-change: transform, opacity, background, border-color;
+    }
+
+    #haotian-cursor.is-theme-target {
+      border-color: rgba(255, 255, 255, 0.78);
+      background: transparent;
+      mix-blend-mode: normal;
     }
 
     .hero-name {
@@ -81,7 +105,7 @@
       white-space: nowrap;
       text-shadow:
         0 0 1px rgba(255, 255, 255, 0.2),
-        0 24px 64px rgba(240, 24, 24, 0.22);
+        0 24px 64px var(--theme-glow);
       transform: scaleX(0.92);
     }
 
@@ -149,20 +173,98 @@
       z-index: 2;
       width: min(var(--max), calc(100% - 40px));
       margin: 0 auto;
-      min-height: calc(82vh - 68px);
+      min-height: calc(76vh - 68px);
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) 360px;
       align-items: center;
       gap: 56px;
-      padding: 56px 0 64px;
-    }
-
-    .hero-copy {
-      padding: 26px 28px 30px;
+      padding: 34px 36px 38px;
       border: 1px solid var(--line);
       background: rgba(17, 16, 15, 0.76);
       border-radius: 6px;
       backdrop-filter: blur(2px);
+    }
+
+    .hero-copy {
+      min-width: 0;
+    }
+
+    .theme-control {
+      display: inline-block;
+      margin: 0 0 16px;
+    }
+
+    .theme-question {
+      margin: 0 0 7px;
+      color: var(--theme-color);
+      font-family: Impact, "Arial Black", Haettenschweiler, system-ui, sans-serif;
+      font-size: 0.88rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: lowercase;
+      opacity: 0;
+      transform: translateY(3px);
+      transition: opacity 160ms ease, transform 160ms ease, color 160ms ease;
+    }
+
+    .theme-question.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .theme-question.is-red {
+      color: #f01818;
+    }
+
+    .theme-question.is-blue {
+      color: #5f8fff;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      gap: 4px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(5, 5, 5, 0.48);
+    }
+
+    .theme-toggle button {
+      width: 30px;
+      height: 30px;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: transparent;
+      cursor: inherit;
+      padding: 0;
+    }
+
+    .theme-toggle button::before {
+      display: block;
+      width: 16px;
+      height: 16px;
+      margin: 0 auto;
+      border-radius: 50%;
+      content: "";
+    }
+
+    .theme-toggle button[data-theme-option="red"]::before {
+      background: #f01818;
+    }
+
+    .theme-toggle button[data-theme-option="blue"]::before {
+      background: #5f8fff;
+    }
+
+    .theme-toggle button[aria-pressed="true"] {
+      border-color: var(--theme-color);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .theme-toggle button:focus-visible {
+      outline: 2px solid var(--theme-color);
+      outline-offset: 2px;
     }
 
     .eyebrow {
@@ -467,6 +569,7 @@
         grid-template-columns: 1fr;
         min-height: auto;
         gap: 34px;
+        padding: 28px;
       }
 
       .hero-image img {
@@ -551,6 +654,7 @@
 
       .hero {
         width: calc(100% - 1.5rem);
+        padding: 20px;
       }
 
       .hero-image img {
@@ -586,12 +690,19 @@
   <main>
     <section class="hero" id="about">
       <div class="hero-copy">
+        <div class="theme-control">
+          <p class="theme-question" aria-live="polite">stay asleep?</p>
+          <div class="theme-toggle" aria-label="Color theme">
+            <button type="button" data-theme-option="red" aria-label="Red theme" aria-pressed="false"></button>
+            <button type="button" data-theme-option="blue" aria-label="Blue theme" aria-pressed="true"></button>
+          </div>
+        </div>
         <p class="eyebrow affiliation-line"><span>Computer Science PhD student in</span><a class="nu-link" href="https://www.northwestern.edu/" target="_blank" rel="noopener"><img class="nu-logo" src="https://cdn.freebiesupply.com/logos/large/2x/northwestern-university-logo-png-transparent.png" alt="Northwestern University"></a></p>
         <h1 class="hero-name">Haotian Chu</h1>
         <p class="lead">My research focuses on building secure, scalable, and trustworthy systems. I am particularly interested in translating advances in security and privacy into production environments, as well as understanding the emerging challenges posed by AI-driven agentic systems.</p>
       </div>
       <div class="hero-image">
-        <img src="img/taro.jpeg" alt="Taro">
+        <img src="img/avatar_photo.png" alt="Haotian Chu">
       </div>
     </section>
 
@@ -686,6 +797,73 @@
     <span>© 2026 Haotian Chu</span>
     <span>Northwestern University · Cryptography</span>
   </footer>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const buttons = document.querySelectorAll("[data-theme-option]");
+      const question = document.querySelector(".theme-question");
+      let suppressQuestion = false;
+      const storageKey = "haotian-theme";
+      const getSavedTheme = () => {
+        try {
+          return localStorage.getItem(storageKey);
+        } catch {
+          return null;
+        }
+      };
+      const saveTheme = (theme) => {
+        try {
+          localStorage.setItem(storageKey, theme);
+        } catch {
+          /* Theme switching still works without persisted storage. */
+        }
+      };
+      const savedTheme = getSavedTheme();
+      const initialTheme = savedTheme === "red" || savedTheme === "blue" ? savedTheme : "blue";
+
+      function setTheme(theme) {
+        root.dataset.theme = theme;
+        saveTheme(theme);
+        buttons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.themeOption === theme));
+        });
+        window.dispatchEvent(new CustomEvent("haotian-theme-change", { detail: { theme } }));
+      }
+
+      function showQuestion(theme) {
+        if (!question || suppressQuestion) return;
+        question.textContent = theme === "red" ? "stay awake?" : "stay asleep?";
+        question.classList.toggle("is-red", theme === "red");
+        question.classList.toggle("is-blue", theme === "blue");
+        question.classList.add("is-visible");
+      }
+
+      function hideQuestion() {
+        if (!question) return;
+        question.classList.remove("is-visible");
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("pointerenter", () => showQuestion(button.dataset.themeOption));
+        button.addEventListener("focus", () => showQuestion(button.dataset.themeOption));
+        button.addEventListener("pointerleave", () => {
+          suppressQuestion = false;
+          hideQuestion();
+        });
+        button.addEventListener("blur", () => {
+          suppressQuestion = false;
+          hideQuestion();
+        });
+        button.addEventListener("click", () => {
+          suppressQuestion = true;
+          hideQuestion();
+          setTheme(button.dataset.themeOption);
+        });
+      });
+
+      setTheme(initialTheme);
+    })();
+  </script>
   <script src="js/haotian-cursor.js"></script>
 </body>
 </html>
