@@ -11,12 +11,15 @@
       --paper: #050505;
       --panel: #050505;
       --line: #262321;
-      --theme-color: #5f8fff;
-      --theme-glow: rgba(95, 143, 255, 0.22);
+      --theme-color: #f01818;
+      --theme-glow: rgba(240, 24, 24, 0.22);
       --accent: var(--theme-color);
-      --accent-strong: #dbe6ff;
+      --accent-strong: #ffefdf;
       --soft: #101010;
       --red: var(--theme-color);
+      --bg-overlay: linear-gradient(rgba(5, 5, 5, 0.52), rgba(5, 5, 5, 0.72));
+      --bg-image: url("img/bg.png");
+      --hero-photo-position: center center;
       --max: 1120px;
     }
 
@@ -24,12 +27,18 @@
       --theme-color: #f01818;
       --theme-glow: rgba(240, 24, 24, 0.22);
       --accent-strong: #ffefdf;
+      --bg-overlay: linear-gradient(rgba(5, 5, 5, 0.52), rgba(5, 5, 5, 0.72));
+      --bg-image: url("img/bg.png");
+      --hero-photo-position: center center;
     }
 
     :root[data-theme="blue"] {
       --theme-color: #5f8fff;
       --theme-glow: rgba(95, 143, 255, 0.22);
       --accent-strong: #dbe6ff;
+      --bg-overlay: linear-gradient(rgba(5, 5, 5, 0.22), rgba(5, 5, 5, 0.46));
+      --bg-image: url("img/bright_bg.png");
+      --hero-photo-position: center top;
     }
 
     * { box-sizing: border-box; }
@@ -38,12 +47,279 @@
       margin: 0;
       color: var(--ink);
       background:
-        linear-gradient(rgba(5, 5, 5, 0.52), rgba(5, 5, 5, 0.72)),
-        url("img/bg.png") center top / cover fixed no-repeat,
+        var(--bg-overlay),
+        var(--bg-image) center top / cover fixed no-repeat,
         var(--paper);
       font-family: Georgia, "Times New Roman", serif;
       line-height: 1.55;
       cursor: none;
+    }
+
+    body::after {
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+      pointer-events: none;
+      opacity: 0;
+      background:
+        linear-gradient(transparent 0 44%, rgba(255, 255, 255, 0.28) 46% 51%, transparent 53% 100%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.14) 0 1px, transparent 1px 5px);
+      background-size: 100% 18px, 100% 5px;
+      mix-blend-mode: screen;
+      content: "";
+    }
+
+    body.is-theme-transitioning::after {
+      animation: theme-glitch-lines 1180ms steps(2, end) both;
+    }
+
+    body.is-theme-transitioning .site-header,
+    body.is-theme-transitioning main,
+    body.is-theme-transitioning .footer {
+      animation: theme-slow-fade 1080ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    body.is-theme-transitioning .hero-name {
+      animation: theme-title-glitch 1040ms steps(2, end) both;
+    }
+
+    .theme-transition-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 997;
+      pointer-events: none;
+      opacity: 0;
+      background: transparent;
+      filter: contrast(1) saturate(1);
+      transform: translate3d(0, 0, 0) scale(1);
+      transform-origin: center;
+    }
+
+    .theme-transition-layer.is-active {
+      opacity: 1;
+    }
+
+    .theme-transition-layer.is-fading {
+      opacity: 0;
+      filter: contrast(1.22) saturate(1.42);
+      transform: translate3d(0, 0, 0) scale(1.014);
+      transition:
+        opacity 1120ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1120ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1120ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .theme-transition-layer::before,
+    .theme-transition-layer::after {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      background: inherit;
+      content: "";
+      mix-blend-mode: screen;
+    }
+
+    body.is-theme-transitioning .theme-transition-layer::before {
+      clip-path: inset(6% 0 58% 0);
+      filter: hue-rotate(198deg) saturate(3) contrast(1.58);
+      animation: theme-rgb-slice-a 1040ms steps(2, end) both;
+    }
+
+    body.is-theme-transitioning .theme-transition-layer::after {
+      clip-path: inset(44% 0 12% 0);
+      filter: hue-rotate(-46deg) saturate(2.9) contrast(1.5);
+      animation: theme-rgb-slice-b 1120ms steps(2, end) both;
+    }
+
+    @keyframes theme-slow-fade {
+      0% {
+        opacity: 1;
+        filter: none;
+        transform: translate3d(0, 0, 0);
+      }
+
+      24% {
+        opacity: 0.42;
+        filter: blur(2.4px) saturate(1.7) contrast(1.18);
+        transform: translate3d(-7px, 2px, 0);
+      }
+
+      38% {
+        opacity: 0.78;
+        filter: blur(0.8px) saturate(1.42) contrast(1.08);
+        transform: translate3d(9px, -2px, 0);
+      }
+
+      52% {
+        opacity: 0.58;
+        filter: blur(1.2px) saturate(1.55);
+        transform: translate3d(-5px, 1px, 0);
+      }
+
+      100% {
+        opacity: 1;
+        filter: none;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes theme-title-glitch {
+      0%, 100% {
+        text-shadow:
+          0 0 1px rgba(255, 255, 255, 0.2),
+          0 24px 64px var(--theme-glow);
+      }
+
+      22% {
+        text-shadow:
+          -12px 0 0 rgba(95, 143, 255, 0.86),
+          11px 0 0 rgba(240, 24, 24, 0.8),
+          0 24px 64px var(--theme-glow);
+      }
+
+      34% {
+        text-shadow:
+          8px 0 0 rgba(95, 143, 255, 0.76),
+          -10px 0 0 rgba(240, 24, 24, 0.7),
+          0 24px 64px var(--theme-glow);
+      }
+
+      48% {
+        text-shadow:
+          -7px 0 0 rgba(95, 143, 255, 0.62),
+          7px 0 0 rgba(240, 24, 24, 0.58),
+          0 24px 64px var(--theme-glow);
+      }
+
+      62% {
+        text-shadow:
+          5px 0 0 rgba(95, 143, 255, 0.42),
+          -5px 0 0 rgba(240, 24, 24, 0.38),
+          0 24px 64px var(--theme-glow);
+      }
+    }
+
+    @keyframes theme-glitch-lines {
+      0%, 100% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0);
+      }
+
+      18% {
+        opacity: 0.68;
+        transform: translate3d(-34px, 0, 0);
+      }
+
+      28% {
+        opacity: 0.42;
+        transform: translate3d(28px, 0, 0);
+      }
+
+      42% {
+        opacity: 0.58;
+        transform: translate3d(-22px, 0, 0);
+      }
+
+      62% {
+        opacity: 0.3;
+        transform: translate3d(15px, 0, 0);
+      }
+
+      78% {
+        opacity: 0.12;
+        transform: translate3d(-8px, 0, 0);
+      }
+    }
+
+    @keyframes theme-rgb-slice-a {
+      0%, 100% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0);
+      }
+
+      12% {
+        opacity: 0.82;
+        transform: translate3d(42px, -4px, 0);
+      }
+
+      24% {
+        opacity: 0.48;
+        transform: translate3d(-58px, 3px, 0);
+      }
+
+      44% {
+        opacity: 0.72;
+        transform: translate3d(70px, -1px, 0);
+      }
+
+      58% {
+        opacity: 0.32;
+        transform: translate3d(-34px, 4px, 0);
+      }
+
+      72% {
+        opacity: 0.16;
+        transform: translate3d(20px, -2px, 0);
+      }
+    }
+
+    @keyframes theme-rgb-slice-b {
+      0%, 100% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0);
+      }
+
+      16% {
+        opacity: 0.66;
+        transform: translate3d(-48px, 3px, 0);
+      }
+
+      32% {
+        opacity: 0.88;
+        transform: translate3d(62px, -3px, 0);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: translate3d(-76px, 1px, 0);
+      }
+
+      66% {
+        opacity: 0.26;
+        transform: translate3d(30px, 4px, 0);
+      }
+
+      82% {
+        opacity: 0.12;
+        transform: translate3d(-18px, -2px, 0);
+      }
+    }
+
+    @supports not (clip-path: inset(10% 0 10% 0)) {
+      .theme-transition-layer::before,
+      .theme-transition-layer::after {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body.is-theme-transitioning::after,
+      body.is-theme-transitioning .site-header,
+      body.is-theme-transitioning main,
+      body.is-theme-transitioning .footer,
+      body.is-theme-transitioning .hero-name {
+        animation: none;
+      }
+
+      .theme-transition-layer.is-fading {
+        transition: opacity 1ms linear;
+      }
+
+      .theme-transition-layer::before,
+      .theme-transition-layer::after {
+        animation: none;
+      }
     }
 
     a {
@@ -312,11 +588,18 @@
       font-weight: 700;
     }
 
+    .hero-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+    }
+
     .hero-image img {
       width: 100%;
       height: 100%;
       min-height: 180px;
       object-fit: cover;
+      object-position: var(--hero-photo-position);
+      aspect-ratio: 1 / 1;
       border: 1px solid var(--line);
     }
 
@@ -574,9 +857,6 @@
 
       .hero-image img {
         min-height: 150px;
-        aspect-ratio: 16 / 10;
-        height: auto;
-        object-fit: contain;
       }
 
       .content {
@@ -676,6 +956,7 @@
 <body>
   <canvas id="haotian-particle-canvas" aria-hidden="true"></canvas>
   <div id="haotian-cursor" aria-hidden="true"></div>
+  <div class="theme-transition-layer" aria-hidden="true"></div>
 
   <header class="site-header">
     <nav class="nav" aria-label="Primary navigation">
@@ -691,10 +972,10 @@
     <section class="hero" id="about">
       <div class="hero-copy">
         <div class="theme-control">
-          <p class="theme-question" aria-live="polite">stay asleep?</p>
+          <p class="theme-question" aria-live="polite">stay awake?</p>
           <div class="theme-toggle" aria-label="Color theme">
-            <button type="button" data-theme-option="red" aria-label="Red theme" aria-pressed="false"></button>
-            <button type="button" data-theme-option="blue" aria-label="Blue theme" aria-pressed="true"></button>
+            <button type="button" data-theme-option="red" aria-label="Red theme" aria-pressed="true"></button>
+            <button type="button" data-theme-option="blue" aria-label="Blue theme" aria-pressed="false"></button>
           </div>
         </div>
         <p class="eyebrow affiliation-line"><span>Computer Science PhD student in</span><a class="nu-link" href="https://www.northwestern.edu/" target="_blank" rel="noopener"><img class="nu-logo" src="https://cdn.freebiesupply.com/logos/large/2x/northwestern-university-logo-png-transparent.png" alt="Northwestern University"></a></p>
@@ -702,7 +983,7 @@
         <p class="lead">My research focuses on building secure, scalable, and trustworthy systems. I am particularly interested in translating advances in security and privacy into production environments, as well as understanding the emerging challenges posed by AI-driven agentic systems.</p>
       </div>
       <div class="hero-image">
-        <img src="img/avatar_photo.png" alt="Haotian Chu">
+        <img src="img/avatar_photo.png" alt="Haotian Chu" data-red-src="img/avatar_photo.png" data-blue-src="img/taro.jpeg">
       </div>
     </section>
 
@@ -802,7 +1083,10 @@
       const root = document.documentElement;
       const buttons = document.querySelectorAll("[data-theme-option]");
       const question = document.querySelector(".theme-question");
+      const heroPhoto = document.querySelector(".hero-image img");
+      const transitionLayer = document.querySelector(".theme-transition-layer");
       let suppressQuestion = false;
+      let transitionTimer = 0;
       const storageKey = "haotian-theme";
       const getSavedTheme = () => {
         try {
@@ -819,15 +1103,59 @@
         }
       };
       const savedTheme = getSavedTheme();
-      const initialTheme = savedTheme === "red" || savedTheme === "blue" ? savedTheme : "blue";
+      const initialTheme = savedTheme === "red" || savedTheme === "blue" ? savedTheme : "red";
 
-      function setTheme(theme) {
+      function getCurrentThemeBackground() {
+        const styles = getComputedStyle(root);
+        return [
+          styles.getPropertyValue("--bg-overlay").trim(),
+          `${styles.getPropertyValue("--bg-image").trim()} center top / cover fixed no-repeat`,
+          styles.getPropertyValue("--paper").trim() || "#050505"
+        ].join(", ");
+      }
+
+      function applyTheme(theme) {
         root.dataset.theme = theme;
         saveTheme(theme);
         buttons.forEach((button) => {
           button.setAttribute("aria-pressed", String(button.dataset.themeOption === theme));
         });
+        if (heroPhoto) {
+          const nextPhoto = theme === "red" ? heroPhoto.dataset.redSrc : heroPhoto.dataset.blueSrc;
+          if (nextPhoto && heroPhoto.getAttribute("src") !== nextPhoto) {
+            heroPhoto.setAttribute("src", nextPhoto);
+          }
+        }
         window.dispatchEvent(new CustomEvent("haotian-theme-change", { detail: { theme } }));
+      }
+
+      function setTheme(theme, options = {}) {
+        const shouldAnimate = Boolean(options.animate && root.dataset.theme && root.dataset.theme !== theme && transitionLayer);
+
+        if (!shouldAnimate) {
+          applyTheme(theme);
+          return;
+        }
+
+        window.clearTimeout(transitionTimer);
+        transitionLayer.classList.remove("is-fading");
+        transitionLayer.style.background = getCurrentThemeBackground();
+        transitionLayer.classList.add("is-active");
+        document.body.classList.remove("is-theme-transitioning");
+        void transitionLayer.offsetWidth;
+
+        document.body.classList.add("is-theme-transitioning");
+        applyTheme(theme);
+
+        requestAnimationFrame(() => {
+          transitionLayer.classList.add("is-fading");
+        });
+
+        transitionTimer = window.setTimeout(() => {
+          transitionLayer.classList.remove("is-active", "is-fading");
+          transitionLayer.style.background = "";
+          document.body.classList.remove("is-theme-transitioning");
+        }, 1180);
       }
 
       function showQuestion(theme) {
@@ -857,7 +1185,7 @@
         button.addEventListener("click", () => {
           suppressQuestion = true;
           hideQuestion();
-          setTheme(button.dataset.themeOption);
+          setTheme(button.dataset.themeOption, { animate: true });
         });
       });
 
