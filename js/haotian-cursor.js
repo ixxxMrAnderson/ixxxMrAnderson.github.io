@@ -59,7 +59,15 @@
   }
 
   function getParticleColor() {
-    return getComputedStyle(document.documentElement).getPropertyValue("--theme-color").trim() || "#5f8fff";
+    const style = getComputedStyle(document.documentElement);
+    return style.getPropertyValue("--particle-color").trim() ||
+      style.getPropertyValue("--theme-color").trim() ||
+      "#5f8fff";
+  }
+
+  function getParticleAlpha(alpha) {
+    const boost = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--particle-alpha-boost"));
+    return clamp(alpha * (Number.isFinite(boost) ? boost : 1), 0, 0.42);
   }
 
   function cellKey(x, y) {
@@ -172,7 +180,7 @@
     staticCtx.fillStyle = getParticleColor();
 
     for (const p of particles) {
-      staticCtx.globalAlpha = p.alpha;
+      staticCtx.globalAlpha = getParticleAlpha(p.alpha);
       staticCtx.beginPath();
       staticCtx.arc(p.homeX, p.homeY, p.radius, 0, Math.PI * 2);
       staticCtx.fill();
@@ -332,7 +340,7 @@
       const p = particles[index];
       const stretch = clamp(Math.hypot(p.vx, p.vy) / 12, 0, 1);
       const radius = p.radius + stretch * 0.8;
-      ctx.globalAlpha = p.alpha * (0.7 + stretch * 0.3);
+      ctx.globalAlpha = getParticleAlpha(p.alpha) * (0.7 + stretch * 0.3);
       ctx.beginPath();
       ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
       ctx.fill();

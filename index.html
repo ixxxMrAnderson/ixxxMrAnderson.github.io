@@ -3,7 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Haotian Chu - Website Concept</title>
+  <title>Haotian Chu</title>
+  <meta name="description" content="Haotian Chu is a Computer Science PhD student at Northwestern University researching security, agentic systems, and applied cryptography.">
+  <meta name="author" content="Haotian Chu">
+  <meta name="application-name" content="Haotian Chu">
+  <link rel="canonical" href="https://ixxxmranderson.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Haotian Chu">
+  <meta property="og:title" content="Haotian Chu">
+  <meta property="og:description" content="Computer Science PhD student at Northwestern University researching security, agentic systems, and applied cryptography.">
+  <meta property="og:url" content="https://ixxxmranderson.github.io/">
+  <meta property="og:image" content="https://ixxxmranderson.github.io/img/avatar_photo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Haotian Chu">
+  <meta name="twitter:description" content="Computer Science PhD student at Northwestern University researching security, agentic systems, and applied cryptography.">
+  <meta name="twitter:image" content="https://ixxxmranderson.github.io/img/avatar_photo.png">
   <style>
     :root {
       --ink: #f4efe7;
@@ -15,6 +29,8 @@
       --theme-glow: rgba(240, 24, 24, 0.22);
       --accent: var(--theme-color);
       --accent-strong: #ffefdf;
+      --particle-color: var(--theme-color);
+      --particle-alpha-boost: 1;
       --soft: #101010;
       --red: var(--theme-color);
       --bg-overlay: linear-gradient(rgba(5, 5, 5, 0.52), rgba(5, 5, 5, 0.72));
@@ -36,6 +52,8 @@
       --theme-color: #5f8fff;
       --theme-glow: rgba(95, 143, 255, 0.22);
       --accent-strong: #dbe6ff;
+      --particle-color: #2f5fe7;
+      --particle-alpha-boost: 1.85;
       --bg-overlay: linear-gradient(rgba(5, 5, 5, 0.22), rgba(5, 5, 5, 0.46));
       --bg-image: url("img/bright_bg.png");
       --hero-photo-position: center top;
@@ -565,11 +583,14 @@
       display: block;
       width: 176px;
       height: auto;
+      filter: brightness(1.85) contrast(1.18) saturate(1.22) drop-shadow(0 0 12px rgba(255, 255, 255, 0.22));
+      opacity: 0.96;
     }
 
     .nu-link {
       display: inline-flex;
       align-items: center;
+      border-radius: 4px;
     }
 
     h1 {
